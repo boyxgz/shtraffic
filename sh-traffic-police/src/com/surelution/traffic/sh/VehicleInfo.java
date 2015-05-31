@@ -33,7 +33,7 @@ public class VehicleInfo implements Serializable {
 	private String vehicleNo;
 	private String engineNo;
 	private String vehicleType;
-	
+
 	public VehicleInfo(String vehicleNo, String engineNo, String vehicleType) {
 		this.vehicleNo = vehicleNo;
 		this.engineNo = engineNo;
@@ -73,6 +73,7 @@ public class VehicleInfo implements Serializable {
 					p.setTerm(o.getString("wftk"));
 					p.setRawTime(o.getString("violatetime"));
 					p.setRawType(o.getString("fenlei"));
+					p.setPoliceOffice(o.getString("cjjg"));
 					ps.add(p);
 				}
 			} catch (JSONException e) {
@@ -85,11 +86,12 @@ public class VehicleInfo implements Serializable {
 		}
 		return ps;
 	}
-	
+
 	public static void main(String[] args) {
-		VehicleInfo vi = new VehicleInfo("浙F62339", "VQ23073361", "02");
+		VehicleInfo vi = new VehicleInfo("浙F5R321", "202067", "02");
 		List<Peccancy> ps = vi.query();
 		for(Peccancy p : ps) {
+			System.out.println(p.getDescription());
 			System.out.println(p.getTime());
 		}
 	}

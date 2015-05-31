@@ -44,6 +44,19 @@ public class Peccancy {
 	 * 执行状态
 	 */
 	private String status;
+	
+	/**
+	 * 采集机关
+	 */
+	private String policeOffice;
+
+	public String getPoliceOffice() {
+		return policeOffice;
+	}
+
+	public void setPoliceOffice(String policeOffice) {
+		this.policeOffice = policeOffice;
+	}
 
 	public String getType() {
 		return type;
