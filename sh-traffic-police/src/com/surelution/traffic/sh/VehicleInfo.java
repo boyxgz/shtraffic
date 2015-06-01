@@ -61,20 +61,26 @@ public class VehicleInfo implements Serializable {
 				sb.append(line);
 			}
 			String content = sb.substring("checksub2(".length(), sb.length() - 2);
+			System.out.println(content);
 			
 			try {
 				JSONArray array = new JSONArray(content);
 				for(int i = 0; i < array.length(); i++) {
 					JSONObject o = array.getJSONObject(i);
-					Peccancy p = new Peccancy();
-					p.setDescription(o.getString("wznr"));
-					p.setRoad(o.getString("roadnum"));
-					p.setStatus(o.getString("clbj"));
-					p.setTerm(o.getString("wftk"));
-					p.setRawTime(o.getString("violatetime"));
-					p.setRawType(o.getString("fenlei"));
-					p.setPoliceOffice(o.getString("cjjg"));
-					ps.add(p);
+
+					//为0时是没有返回值
+					String rawType = o.getString("fenlei");
+					if(!"0".equals(rawType)) {
+						Peccancy p = new Peccancy();
+						p.setDescription(o.getString("wznr"));
+						p.setRoad(o.getString("roadnum"));
+						p.setStatus(o.getString("clbj"));
+						p.setTerm(o.getString("wftk"));
+						p.setRawTime(o.getString("violatetime"));
+						p.setRawType(rawType);
+						p.setPoliceOffice(o.getString("cjjg"));
+						ps.add(p);
+					}
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -88,7 +94,8 @@ public class VehicleInfo implements Serializable {
 	}
 
 	public static void main(String[] args) {
-		VehicleInfo vi = new VehicleInfo("浙F5R321", "202067", "02");
+		//"沪mt8357", "8207633", "02"
+		VehicleInfo vi = new VehicleInfo("沪cps419", "110531082", "02");
 		List<Peccancy> ps = vi.query();
 		for(Peccancy p : ps) {
 			System.out.println(p.getDescription());
