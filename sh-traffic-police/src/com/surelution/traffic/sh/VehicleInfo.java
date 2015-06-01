@@ -62,13 +62,17 @@ public class VehicleInfo implements Serializable {
 			}
 			String content = sb.substring("checksub2(".length(), sb.length() - 2);
 			System.out.println(content);
-			
 			try {
 				JSONArray array = new JSONArray(content);
 				for(int i = 0; i < array.length(); i++) {
 					JSONObject o = array.getJSONObject(i);
 
-					//为0时是没有返回值
+//					 0:无违章记录
+//					-1:IP地址错误
+//					-2:数据更新中,请稍后再试！
+//					-3:车牌号错误，请核对后再试！
+//					-4:发动机号错误，请核对后再试！
+//					-5:驾驶号错误，请核对后再试！
 					String rawType = o.getString("fenlei");
 					if(!"0".equals(rawType)) {
 						Peccancy p = new Peccancy();
@@ -95,7 +99,7 @@ public class VehicleInfo implements Serializable {
 
 	public static void main(String[] args) {
 		//"沪mt8357", "8207633", "02"
-		VehicleInfo vi = new VehicleInfo("沪cps419", "110531082", "02");
+		VehicleInfo vi = new VehicleInfo("沪mt8357", "8207633", "02");
 		List<Peccancy> ps = vi.query();
 		for(Peccancy p : ps) {
 			System.out.println(p.getDescription());
